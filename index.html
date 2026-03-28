@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Henrique Martins | Data Engineer</title>
+  <title>Henrique Martins | Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,93 +13,54 @@
   <p>Data Engineer | Python | SQL | AWS</p>
 
   <a href="https://github.com/seu-usuario" target="_blank" class="github-btn">
-    View GitHub
+    GitHub
   </a>
 </header>
 
 <section class="container">
-
-  <h2 class="section-title fade-in">Projects</h2>
+  <h2 class="section-title">Projects</h2>
 
   <div class="projects">
 
     <div class="card reveal">
+
       <div class="carousel">
+
         <img src="images/p1-1.png" class="active">
         <img src="images/p1-2.png">
         <img src="images/p1-3.png">
 
-        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-        <button class="next" onclick="changeSlide(this, 1)">❯</button>
+        <button class="nav prev">❮</button>
+        <button class="nav next">❯</button>
+
+        <div class="dots"></div>
       </div>
 
       <div class="card-content">
-        <h3>Data Pipeline with Airflow</h3>
-        <p>Automated ETL pipeline for data processing.</p>
+        <h3>Data Pipeline</h3>
+        <p>Automated ETL with Airflow</p>
 
         <div class="more">
-          Built with Airflow, MongoDB and Python. Handles ingestion, transformation and storage.
+          Full pipeline with ingestion, transformation and storage.
         </div>
 
         <div class="card-buttons">
           <span class="btn" onclick="toggleMore(this)">Read more</span>
-          <a href="https://github.com/seu-usuario/projeto1" target="_blank">GitHub</a>
+          <a href="#">GitHub</a>
         </div>
       </div>
-    </div>
 
-    <div class="card reveal">
-      <div class="carousel">
-        <img src="images/p1-1.png" class="active">
-        <img src="images/p1-2.png">
-        <img src="images/p1-3.png">
-
-        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-        <button class="next" onclick="changeSlide(this, 1)">❯</button>
-      </div>
-      <div class="card-content">
-        <h3>HRV Data Analysis</h3>
-        <p>Health data processing and metrics calculation.</p>
-
-        <div class="more">
-          Includes RMSSD, SDNN and time-series analysis using Python and Pandas.
-        </div>
-
-        <div class="card-buttons">
-          <span class="btn" onclick="toggleMore(this)">Read more</span>
-          <a href="https://github.com/seu-usuario/projeto2" target="_blank">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="card reveal">
-      <div class="carousel">
-        <img src="images/p1-1.png" class="active">
-        <img src="images/p1-2.png">
-        <img src="images/p1-3.png">
-
-        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-        <button class="next" onclick="changeSlide(this, 1)">❯</button>
-      </div>
-      <div class="card-content">
-        <h3>Web Portfolio</h3>
-        <p>Responsive personal portfolio website.</p>
-
-        <div class="more">
-          Built with HTML, CSS and JavaScript with animations and modern UI.
-        </div>
-
-        <div class="card-buttons">
-          <span class="btn" onclick="toggleMore(this)">Read more</span>
-          <a href="https://github.com/seu-usuario/projeto3" target="_blank">GitHub</a>
-        </div>
-      </div>
     </div>
 
   </div>
 </section>
 
-<script src="script.js"></script>
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
 
+<script src="script.js"></script>
 </body>
 </html>
