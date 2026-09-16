@@ -1,0 +1,33 @@
+.terminal-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.opacidade {
+  transition: opacity 0.5s ease;
+}
+
+.blink {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: blink-caret 1s step-end infinite;
+}
+
+@keyframes blink-caret {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
