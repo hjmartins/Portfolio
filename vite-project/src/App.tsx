@@ -25,6 +25,7 @@ type Project = {
   num: string
   title: string
   slot: string
+  img?: string // caminho relativo a public/, ex.: "projects/etl.png"
   desc: string
   m1v: string
   m1k: string
@@ -39,10 +40,10 @@ const projects: Project[] = [
     title: "ETL de ponta a ponta",
     slot: "diagrama da arquitetura",
     desc: "Pipeline construída do zero: extração agendada, DAGs em Airflow com retries e alertas, transformação em dbt com testes e camadas, carga em ClickHouse para consulta analítica.",
-    m1v: "preencher",
-    m1k: "volume / frequência",
-    m2v: "E2E",
-    m2k: "ingestão → consumo",
+    m1v: "semanal",
+    m1k: "frequência",
+    m2v: "51h → 16h",
+    m2k: "tempo de backfill",
     stack: ["Airflow", "dbt", "ClickHouse", "Python", "SQL"],
   },
   {
@@ -50,8 +51,8 @@ const projects: Project[] = [
     title: "Pipelines na GCP",
     slot: "diagrama dos serviços",
     desc: "Ingestão e processamento em serviços gerenciados do Google Cloud, com execução agendada, logging e dados modelados em BigQuery para análise.",
-    m1v: "preencher",
-    m1k: "volume / frequência",
+    m1v: "diária",
+    m1k: "frequência",
     m2v: "GCP",
     m2k: "ambiente",
     stack: ["GCP", "BigQuery", "Cloud Storage", "Python"],
@@ -61,26 +62,37 @@ const projects: Project[] = [
     title: "Data lake on-premise",
     slot: "camadas do data lake",
     desc: "Data lake em infraestrutura própria, organizado em camadas raw → staging → curated, com processos de carga versionados em Git e rodando em containers.",
-    m1v: "preencher",
-    m1k: "volume / frequência",
+    m1v: "diária",
+    m1k: "frequência",
     m2v: "on-prem",
     m2k: "ambiente",
     stack: ["Docker", "Linux", "Python", "SQL"],
   },
+  {
+    num: "04",
+    title: "Lakehouse medallion no Databricks",
+    slot: "bronze → silver → gold",
+    desc: "Pipeline lakehouse com Delta Lake: ingestão em PySpark na bronze, limpeza e tipagem na silver, modelo dimensional com dbt na gold e testes de qualidade, orquestrada em Lakeflow Jobs. Feita com dados públicos (Olist) para mostrar abertamente a estrutura de uma pipeline real.",
+    m1v: "3 camadas",
+    m1k: "bronze → silver → gold",
+    m2v: "Databricks",
+    m2k: "ambiente",
+    stack: ["Databricks", "Delta Lake", "PySpark", "dbt", "Unity Catalog"],
+  },
 ]
 
 const stack = [
-  { label: "Dados", items: ["Python", "SQL", "dbt", "Pandas"] },
-  { label: "Orquestração", items: ["Airflow"] },
-  { label: "Armazenamento", items: ["ClickHouse", "BigQuery", "Postgres"] },
-  { label: "Cloud", items: ["GCP", "Cloud Storage"] },
+  { label: "Dados", items: ["Python", "SQL", "dbt", "Pandas", "Polars", "PySpark"] },
+  { label: "Orquestração", items: ["Airflow", "Dagster", "Lakeflow Jobs"] },
+  { label: "Armazenamento", items: ["ClickHouse", "BigQuery", "Postgres", "Delta Lake"] },
+  { label: "Cloud", items: ["GCP", "Cloud Storage", "Databricks"] },
   { label: "Infra", items: ["Docker", "Linux", "Git"] },
 ]
 
 const roles = [
-  { when: "preencher", title: "Cargo atual", org: "Empresa", note: "Uma linha sobre o que você entrega hoje — pipelines em produção, times atendidos." },
-  { when: "preencher", title: "Cargo anterior", org: "Empresa", note: "O que você construiu ali: migração, primeira pipeline, automação." },
-  { when: "preencher", title: "Início", org: "Empresa / formação", note: "Onde você começou a trabalhar com dados." },
+  { when: "2025 – hoje", title: "Engenheiro de dados", org: "NUTES", note: "Cargo atual." },
+  { when: "2024 – 2025", title: "Engenheiro e analista de dados", org: "NUTES", note: "Observabilidade dos dados com Grafana, manutenção de pipelines, qualidade dos dados, construção e manutenção de dashboards e extração de dados." },
+  { when: "2023 – 2025", title: "QA", org: "NUTES", note: "Análise da qualidade dos dados e observabilidade dos dados na plataforma, incluindo como eram apresentados aos usuários." },
 ]
 
 const contacts = [
@@ -211,8 +223,8 @@ function PipelineCard() {
 
 function Hero() {
   const metrics = [
-    ["3", "pipelines completas"],
-    ["2", "ambientes: GCP · on-prem"],
+    ["+1BI", "linhas processadas"],
+    ["60 MI", "registros semanais"],
     ["E2E", "ingestão → consumo"],
   ]
   return (
@@ -275,23 +287,33 @@ function Work() {
     <section id="trabalho" className="py-[clamp(56px,7vw,96px)]" style={{ borderTop: `1px solid ${C.line}` }}>
       <div className="mb-[clamp(36px,5vw,60px)] flex flex-wrap items-baseline justify-between gap-6">
         <h2 className="m-0 text-[clamp(32px,4.4vw,56px)] font-bold" style={{ letterSpacing: "-0.03em" }}>Trabalho selecionado</h2>
-        <span style={{ ...mono, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: C.dim }}>03 pipelines</span>
+        <span style={{ ...mono, fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: C.dim }}>04 pipelines</span>
       </div>
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))" }}>
         {projects.map((p) => (
           <article key={p.num} className="overflow-hidden rounded-lg transition-colors" style={{ border: `1px solid ${C.line}`, background: C.panel }}>
-            <div
-              className="flex h-[156px] items-center justify-center"
-              style={{
-                borderBottom: `1px solid ${C.line}`,
-                backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 1px, transparent 1px 9px)",
-              }}
-            >
-              <span style={{ ...mono, fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: C.dim, background: C.panel, padding: "6px 12px", border: `1px dashed ${C.line2}` }}>
-                {p.slot}
-              </span>
-            </div>
+            {p.img ? (
+              <img
+                src={import.meta.env.BASE_URL + p.img}
+                alt={p.slot}
+                loading="lazy"
+                className="block h-[156px] w-full object-cover"
+                style={{ borderBottom: `1px solid ${C.line}` }}
+              />
+            ) : (
+              <div
+                className="flex h-[156px] items-center justify-center"
+                style={{
+                  borderBottom: `1px solid ${C.line}`,
+                  backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 1px, transparent 1px 9px)",
+                }}
+              >
+                <span style={{ ...mono, fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: C.dim, background: C.panel, padding: "6px 12px", border: `1px dashed ${C.line2}` }}>
+                  {p.slot}
+                </span>
+              </div>
+            )}
             <div className="p-6">
               <div className="flex items-baseline justify-between gap-4">
                 <h3 className="m-0 text-[22px] font-semibold" style={{ letterSpacing: "-0.015em" }}>{p.title}</h3>
@@ -341,7 +363,7 @@ function Stack() {
 
 function About() {
   const facts = [
-    ["Base", "São Paulo, BR"],
+    ["Base", "Paraíba, Brasil"],
     ["Formato", "Remoto / híbrido"],
     ["Início", "Imediato"],
   ]
